@@ -34,7 +34,7 @@ steps:
     pod install
     sudo cp -R ../node_modules/react-native-azurenotificationhub/ios Pods/RNAzureNotificationHub
     sudo chown -R $(id -u):$(id -g) Pods/RNAzureNotificationHub
-    pod update
+    pod update --no-repo-update
   displayName: 'Install CocoaPods dependencies'
   workingDirectory: '../sample/ios'
 
