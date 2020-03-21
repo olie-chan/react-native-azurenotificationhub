@@ -19,14 +19,6 @@ steps:
     versionSpec: '10.15.3'
   displayName: 'Install Node'
 
-- script: gem install slather
-  displayName: 'Install slather'
-  workingDirectory: '../sample'
-
-- script: dotnet tool install -g dotnet-reportgenerator-globaltool
-  displayName: 'Install ReportGenerator'
-  workingDirectory: '../sample'
-
 - script: npm install
   displayName: 'Install dependencies'
   workingDirectory: '../sample'
@@ -36,44 +28,6 @@ steps:
     cp -R ../s/* ./node_modules/react-native-azurenotificationhub/
     cp ../s/.slather.yml .
   displayName: 'Copying react-native-azurenotificationhub'
-  workingDirectory: '../sample'
-
-- script: npm run lint
-  displayName: 'Run lint'
-  workingDirectory: '../sample'
-
-- script: npm run test
-  displayName: 'Run unit tests'
-  workingDirectory: '../sample'
-
-- task: Gradle@2
-  displayName: 'Building Android'
-  inputs:
-    workingDirectory: '../sample/android'
-    gradleWrapperFile: '../sample/android/gradlew'
-    tasks: 'assembleRelease'
-  continueOnError: false
-  
-- task: Gradle@2
-  displayName: 'Running Android unit tests'
-  inputs:
-    workingDirectory: '../sample/android'
-    gradleWrapperFile: '../sample/android/gradlew'
-    testResultsFiles: '../sample/android/app/build/test-results/testDebugUnitTest/*.xml'
-    publishJUnitResults: 'true'
-    tasks: 'test'
-  continueOnError: false
-
-- task: Gradle@2
-  displayName: 'Generate Android code coverage'
-  inputs:
-    workingDirectory: '../sample/android'
-    gradleWrapperFile: '../sample/android/gradlew'
-    tasks: 'clean createOfflineTestCoverageReport jacocoTestReport'
-  continueOnError: false
-
-- script: python ./cover2cover.py ./jacocoXml.xml>jacoco.xml
-  displayName: 'Convert Jacoco report to Cobertura'
   workingDirectory: '../sample'
 
 - script: |
